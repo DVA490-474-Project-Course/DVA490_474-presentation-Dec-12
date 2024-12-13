@@ -1,0 +1,73 @@
+\begin{animateinline}[loop,autoplay]{18} % Impacts speed and smoothness
+\multiframe{90}{rangle=0+4}{ % Impacts animation length
+    \begin{tikzpicture}[scale=2]
+    
+        \begin{scope}[shift={(1.5,0)}]
+            % Draw the inner stator circle
+            \draw[thick] (0,0) circle (1);
+            % Draw the outer circle
+            \draw[thick] (0,0) circle (1.3);
+
+            % Fill the segments between the two circles
+            \draw[thick, red, fill=red, opacity=0.4] (80:1) arc[start angle=80, end angle=100, radius=1] -- (100:1.3) arc[start angle=100, end angle=80, radius=1.3] -- cycle;
+            \draw[thick, blue, fill=blue, opacity=0.4] (200:1) arc[start angle=200, end angle=220, radius=1] -- (220:1.3) arc[start angle=220, end angle=200, radius=1.3] -- cycle;
+            \draw[thick, green, fill=green, opacity=0.4] (320:1) arc[start angle=320, end angle=340, radius=1] -- (340:1.3) arc[start angle=340, end angle=320, radius=1.3] -- cycle;
+
+            % Labels for the windings (red, blue, green)
+            \node[black] at (90:1.15) {\small A};  % Label A in red
+            \node[black] at (210:1.15) {\small B};  % Label B in blue
+            \node[black] at (330:1.15) {\small C};  % Label C in green
+
+            % Phase A current (red)
+            \pgfmathsetmacro{\ia}{sqrt(4)/3*sin(\rangle + 0)} % Scaled to avoid overlap
+            \draw[->,thick,red] (0,0) -- ({\ia*cos(90)},{\ia*sin(90)}) node[right] {\tiny $i_a$};
+            % Phase B current (blue)
+            \pgfmathsetmacro{\ib}{sqrt(4)/3*sin(\rangle - 120)} % Offset by 120 degrees
+            \draw[->,thick,blue] (0,0) -- ({\ib*cos(210)},{\ib*sin(210)}) node[below right] {\tiny $i_b$};
+            % Phase C current (green)
+            \pgfmathsetmacro{\ic}{sqrt(4)/3*sin(\rangle - 240)} % Offset by 240 degrees
+            \draw[->,thick,green] (0,0) -- ({\ic*cos(330)},{\ic*sin(330)}) node[below left] {\tiny $i_c$};
+
+            % Stator field vector ("attracts")
+            \pgfmathsetmacro{\xvec}{\ia*cos(90) + \ib*cos(210) + \ic*cos(330)} 
+            \pgfmathsetmacro{\yvec}{\ia*sin(90) + \ib*sin(210) + \ic*sin(330)} 
+            \draw[->,thick,brown] (0,0) -- (\xvec,\yvec) node at ({1.15*\xvec},{1.15*\yvec}) {$\vec{S}$};
+
+            % Rotor field vector (Magnet)
+            \draw[->,thick,gray] (0,0) -- ({cos(\rangle-90)},{sin(\rangle-90)}) node at ({1.15*cos(\rangle-90)},{1.15*sin(\rangle-90)}) {$\vec{R}$};
+        \end{scope}
+
+        \begin{scope}[shift={(-1.5,0)}]
+            % Create axis
+            \draw[->] (-2,0) -- (0.5,0) node[right] {\small Time};
+            \draw[->] (-2,-1) -- (-2,1) node[above] {\small Current};
+        
+            % Sinusoidal waves
+            \foreach \t in {-360,-355,...,-5}{
+                % Map to x-axis
+                \pgfmathsetmacro{\time}{\t / 360 * 2} % / range
+        
+                % Calculate sinusoidal values for phases A, B, and C
+                \pgfmathsetmacro{\sina}{sin(\rangle + \t)}
+                \pgfmathsetmacro{\sinb}{sin(\rangle + \t - 120)}
+                \pgfmathsetmacro{\sinc}{sin(\rangle + \t - 240)}
+        
+                % Next time
+                \pgfmathsetmacro{\nexttime}{\time + 2/(360/5)}  % + (x_axis_length)/(range/step_size)
+                \pgfmathsetmacro{\nextt}{\t + 5} % + step size 
+        
+                % Next value
+                \pgfmathsetmacro{\nextsina}{sin(\rangle + \nextt)}
+                \pgfmathsetmacro{\nextsinb}{sin(\rangle + \nextt - 120)}
+                \pgfmathsetmacro{\nextsinc}{sin(\rangle + \nextt - 240)}
+        
+                % Draw lines between points
+                \draw[red,thick] (\time,\sina/1.5) -- (\nexttime,\nextsina/1.5);
+                \draw[blue,thick] (\time,\sinb/1.5) -- (\nexttime,\nextsinb/1.5);
+                \draw[green,thick] (\time,\sinc/1.5) -- (\nexttime,\nextsinc/1.5);
+            }
+        \end{scope}
+        
+    \end{tikzpicture}
+}
+\end{animateinline}

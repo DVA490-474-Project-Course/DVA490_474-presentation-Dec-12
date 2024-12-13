@@ -1,0 +1,90 @@
+%-------------------------------------------------------------------------------
+
+% Hardware Design (Exploded view of the robot, showing motors, sensors and electronics)
+\begin{frame}{Hardware Design}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\textbf{Motors \& Wheels}\\
+			\begin{itemize}
+				\item 4 \ac{bldc} motors
+				\item Omniwheels
+			\end{itemize}
+			\textbf{Sensors}\\
+			\begin{itemize}
+				\item Distance
+				\item Ball detection
+				\item Obstacle detection
+				\item Odometry
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{adjustbox}{scale=2,center,margin={-1cm,3cm,2cm,0cm}}
+				\includegraphics[width=0.9\textwidth]{image/png/motors_transparent.png}
+			\end{adjustbox}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\begin{frame}{Sensors}
+
+	\textbf{Optical wheel encoders}
+
+	\textbf{Hall sensors}
+
+	\textbf{9-\acf{dof} \acf{imu}}
+
+	\textbf{Short range \acf{lidar}}
+
+	\textbf{Long range \ac{lidar}}
+
+	\textbf{\acf{rgb} sensor}
+
+	\textbf{Camera}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\begin{frame}[plain]
+
+	% Encoder video
+	\begin{adjustbox}{scale=1,center,margin={0cm,0cm,0cm,0cm}}
+		\includemedia[
+			width=\paperwidth,
+			height=\paperheight,
+			activate=pageopen,
+			transparent,
+			passcontext,
+			addresource=image/videos_gifs/long_encoder_render.mp4,
+			flashvars={
+					source=image/videos_gifs/long_encoder_render.mp4     % same path as in addresource!
+					&loop=true
+					&autoPlay=true
+				}
+		]{}{VPlayer.swf}
+	\end{adjustbox}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\begin{frame}{Electronics and Power Management}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\textbf{Custom \ac{pcb} design}
+			\begin{itemize}
+				\item Vertical mount for the \ac{esc}
+				\item Power \textbf{ORing} circuitry
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{adjustbox}{scale=2,center,margin={-1cm,3cm,2cm,0cm}}
+				\includegraphics[width=\textwidth]{image/png/robot_base.png}
+			\end{adjustbox}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%-------------------------------------------------------------------------------

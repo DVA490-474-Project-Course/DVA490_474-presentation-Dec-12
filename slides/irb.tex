@@ -1,0 +1,61 @@
+%-------------------------------------------------------------------------------
+
+% Path planning
+\begin{frame}{Raspberry Pi executable}
+
+    Aiming and shooting
+
+    Computer vision, object recognition
+
+    Sensor fusion : \acf{ekf}
+
+    Localization : \acf{amcl}
+  
+    Local path planning : DWB, extension of \acf{dwa}
+
+    Global path planning : smac planner (templated A$^*$)
+    
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+% AMCL
+\begin{frame}{\acf{amcl}}
+
+    % AMCL
+    \begin{adjustbox}{scale=1,center,margin={0cm,0cm,0cm,0cm}}
+        \input{image/tikz_animations/amcl_animation}
+    \end{adjustbox}
+    
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+% DWA
+\begin{frame}{\acf{dwa}}
+
+    % DWA
+    \begin{adjustbox}{scale=1.1,center,margin={0cm,0cm,0cm,0cm}}
+        \input{image/tikz_figures/dwa_figure}
+    \end{adjustbox}
+    
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+% A*
+\begin{frame}{A$^*$}
+
+    % A* search
+    \begin{adjustbox}{scale=0.7,center,margin={0cm,0cm,0cm,0cm}}
+        \includegraphics[width=1\textwidth]{image/png/a_star_search.png}
+    \end{adjustbox}
+
+    \vspace{-0.5cm}
+    \begin{center}
+        \href{https://qiao.github.io/PathFinding.js/visual/}{https://qiao.github.io/PathFinding.js/visual/}
+    \end{center}
+    
+\end{frame}
+
+%-------------------------------------------------------------------------------

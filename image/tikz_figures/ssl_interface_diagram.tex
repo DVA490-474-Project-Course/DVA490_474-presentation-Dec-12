@@ -1,0 +1,22 @@
+% Global options
+\begin{tikzpicture}[
+    node distance=1.5cm and 2.5cm,
+    box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
+    arrow/.style={->, thick}
+]
+
+    % Draw nodes
+    \node[box, fill=yellow!30] (vision) {ssl-vision};
+    \node[box, fill=pink!30, right of=vision, xshift=4cm] (gc) {ssl-game-controller / \\ Automatic Game Controller};
+    % Find middle between vision node and game controller node
+    \coordinate (mid) at ($(vision)!0.5!(gc)$);
+    % Centered under
+    \node[box, fill=green!30, below of=mid, yshift=-6mm] (udp) {UDP Client};
+    \node[box, fill=blue!30, below of=udp, yshift=-6mm] (api) {API Calls};
+    
+    % Draw connections
+    \draw[arrow] (vision) -- (udp) node[midway, left, xshift=-1mm] {Position};
+    \draw[arrow] (gc) -- (udp) node[midway, right, xshift=2mm] {Referee Commands};
+    \draw[arrow] (udp) -- (api);
+
+\end{tikzpicture}

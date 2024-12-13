@@ -1,0 +1,73 @@
+%-------------------------------------------------------------------------------
+
+\begin{frame}{Hardware interface overview}
+
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+
+			Communication using:
+			\begin{itemize}
+				\item \acf{uart}
+				\item \acf{i2c}
+				\item \acf{gpio}
+			\end{itemize}
+
+			External drivers
+
+			\acs{micro-ros}
+
+		\end{column}
+		\begin{column}{0.5\textwidth}
+
+			% Hardware interface diagram
+			\begin{adjustbox}{scale=0.7,center,margin={-1cm,3cm,2cm,0cm}}
+				\input{image/tikz_figures/hardware_interface_diagram}
+			\end{adjustbox}
+
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\begin{frame}{Hardware interface, motor control}
+
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+
+            \vspace{2cm}
+
+            Dribbler motor control : \acf{pwm}
+
+            \vspace{1em}
+
+            Wheel motor control : \acf{foc} (MC Workbench 6)
+            
+            \end{column}
+		\begin{column}{0.5\textwidth}
+
+			% All motors
+			\begin{adjustbox}{scale=2.1,center,margin={-1cm,3cm,2cm,0cm}}
+				\includegraphics[width=1\textwidth]{image/png/motors_transparent.png}
+			\end{adjustbox}
+
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\begin{frame}{Hardware interface, \acf{foc}}
+
+	% FOC
+	\begin{adjustbox}{scale=1,center,margin={0cm,0cm,0cm,0cm}}
+	%\tikzexternaldisable
+	\input{image/tikz_animations/foc_animation}
+	%\tikzexternalenable
+	\end{adjustbox}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------

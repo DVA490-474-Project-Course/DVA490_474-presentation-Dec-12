@@ -1,0 +1,106 @@
+%===============================================================================
+% Document stuff
+
+% Aspect ratio 16:9 and 4:3
+% Font size
+\documentclass[18pt,aspectratio=169]{beamer}
+\usepackage[british,style=iso]{datetime2}
+
+%===============================================================================
+% Name, title etc
+
+\title[RoboCup]{Multi-robot Soccer - RoboCup}
+\subtitle{Project Presentation}
+\author[V Eriksson et al.]{Viktor Eriksson, Anton Grusell, Mudar Ibrahim, Jacob Johanssson, Aaiza Aziz Khan, Carl Larsson, Johanna Melander, Shruti Puthiya Kunnon, Pontus Svensson, Fredrik Westerbom, Emil Åberg}
+
+% 
+\institute[@MDH]{%
+Mälardalen University\\{%
+\scriptsize \texttt{cln20001@student.mdu.se}\\%
+\scriptsize \texttt{psn19003@student.mdu.se}}\\%
+Version: \today}
+
+%===============================================================================
+% Document stuff
+
+\date{\today}
+
+\input{include}
+\input{acronyms}
+%\immediate\write18{}
+%\tikzexternalize[prefix=generated/]
+
+\begin{document}
+\maketitle
+
+%===============================================================================
+
+\begin{frame}{Outline}
+	\setbeamertemplate{section in toc}[sections numbered]
+	\tableofcontents[hideallsubsections]
+\end{frame}
+
+%-------------------------------------------------------------------------------
+
+\input{slides/intro_video}
+
+%-------------------------------------------------------------------------------
+
+\section{Background}
+
+\input{slides/ssl_robocup}
+\input{slides/our_project}
+
+
+%-------------------------------------------------------------------------------
+
+\section{Hardware}
+
+\input{slides/design_objectives.tex}
+\input{slides/Hardware}
+
+\subsection{Components}
+
+\input{slides/wheels}
+\input{slides/kicker}
+\input{slides/dribbler}
+
+%-------------------------------------------------------------------------------
+
+\section{Software}
+
+\subsection{\acf{ai}}
+
+\input{slides/crb}
+
+\subsection{\acf{ros}}
+
+\input{slides/ros}
+
+\subsection{Interfaces}
+
+\input{slides/ssl_interface}
+\input{slides/simulation_interface}
+\input{slides/hardware_interface}
+
+\subsection{Middleman}
+
+\input{slides/irb}
+
+%-------------------------------------------------------------------------------
+
+\section{Review}
+
+\input{slides/conclusion}
+\input{slides/next_steps}
+\input{slides/the_team}
+\input{slides/acknowledgment}
+
+%-------------------------------------------------------------------------------
+
+
+%===============================================================================
+
+\end{document}
+
+%===============================================================================

@@ -1,0 +1,36 @@
+\tikzstyle{box} = [rectangle, draw, rounded corners, text centered, minimum height=2em]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{tikzpicture}[node distance=2cm and 2.5cm]
+
+    % Nodes
+    \node (environment) [box, fill=blue!30, minimum width=12cm] {Environment};
+    
+    % Policy Network box
+    \node (policy) [box, fill=green!30, below left=of environment, xshift=5cm, minimum width=5cm, minimum height=5cm] {};
+    % Policy Network Text
+    \node[anchor=north] at (policy.north) {Policy Network};
+    % Agents inside Policy Network
+    \node (agent1) [box, fill=yellow!30, below of=policy, yshift=2cm] {Agent 1};
+    \node (agentn) [box, fill=yellow!30, below of=agent1, yshift=0.7cm] {Agent n};
+    % Add dots between agents
+    \node (dots) [yshift=0.1cm] at ($(agent1)!0.5!(agentn)$) {\vdots};
+    
+    % Critic Network
+    \node (critic) [box, fill=red!30, below right=of environment, xshift=-5cm, minimum width=5cm, minimum height=5cm] {Critic Network};
+    
+    % Loss Functions
+    \node (loss) [box, fill=purple!30, below of=environment, yshift=-8cm, minimum width=12cm] {Loss Functions};
+
+
+    % Connections
+    \draw [arrow] (policy) -- (loss) node[midway, left, xshift=-0.3cm] {Predictions};
+    \draw [arrow] (critic) -- (loss) node[midway, right, xshift=0.3cm] {Estimations};
+    \draw [thick,->,>=stealth, rotate around={90:(loss)}] (loss.west) -- ++(0,4) -| (policy.west) node[midway, left, yshift=-2.5cm] {Update};
+    \draw [thick,->,>=stealth, rotate around={-90:(loss)}] (loss.east)-- ++(0,4) -| (critic.east) node[midway, right, yshift=-2.5cm] {Update};
+
+    \draw [thick,->,>=stealth] ($(policy.north)!0.25!(policy.north east)$) -- ($(environment.south west)!0.10!(environment.south)$) node[midway, left] {Action};
+    \draw [arrow] (environment) -- (policy) node[midway, left, xshift=0.1cm, text width=2cm] {State \& \newline Reward};
+    \draw [arrow] (environment) -- (critic) node[midway, right, xshift=0.6cm, text width=2cm] {State \& \newline Reward};
+
+\end{tikzpicture}

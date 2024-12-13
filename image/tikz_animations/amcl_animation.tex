@@ -1,0 +1,90 @@
+% Static landmarks (centered in grid cells)
+\newcommand{\landmarks}{
+  \foreach \pos in {(1.5,2.5), (6.5,3.5), (4.5,7.5)} {
+    \draw[fill=gray] \pos ++(-0.5,-0.5) rectangle ++(1,1);
+  }
+}
+
+% Robot
+% X_pos, Y_pos
+\newcommand{\truepose}[2]{
+  \draw[fill=blue] (#1,#2) -- ++(0.3,0) -- ++(0,0.3) -- ++(-0.3,0) -- ++(0,-0.3) -- cycle;
+}
+
+% Particles
+% Center_x, Center_y, Spread, Num_particles
+\newcommand{\particles}[4]{
+  % Update all particles
+  \foreach \i in {1,...,#4} {
+    % Generate a random angle and radius for circular distribution
+    \pgfmathsetmacro{\angle}{rnd*360}
+    \pgfmathsetmacro{\radius}{rnd * #3}
+    % Convert polar coordinates to Cartesian
+    \pgfmathsetmacro{\dx}{\radius * cos(\angle)}
+    \pgfmathsetmacro{\dy}{\radius * sin(\angle)}
+    % Constrain to grid bounds
+    \pgfmathsetmacro{\x}{max(0.05, min(7.95, #1 + \dx))}
+    \pgfmathsetmacro{\y}{max(0.05, min(7.95, #2 + \dy))}
+    \draw[fill=red,opacity=0.6] (\x,\y) circle (0.05);
+  }
+}
+
+% Animation
+\begin{animateinline}[loop,autoplay]{15} % Frame rate
+  \multiframe{60}{i=0+2}{ % Frames and step size
+    \begin{tikzpicture}[scale=0.9] % Scale
+      % Grid and landmarks
+      \draw[step=1,gray,thin] (0,0) grid (8,8);
+      \draw[thick] (0,0) rectangle (8,8);
+      \landmarks
+
+      % Move robot in an arc to center (4,4)
+      \pgfmathsetmacro{\rx}{(4 - 0.5) * sin(3.1415 * \i / 4) + 3}  % Arc motion on x-axis
+      \pgfmathsetmacro{\ry}{(4 - 0.5) * (1 - cos(3.1415 * \i / 4)) + 3.5}  % Arc motion on y-axis
+      \truepose{\rx}{\ry}
+
+      % Spread
+      \pgfmathsetmacro{\spread}{0.1 + 5.9 / (0.3 + 0.01 * sqrt(\i) * \i)}
+      % Initialize
+      \ifnum\i<10
+        \particles{4}{4}{6}{200}  % Initial random particles
+      % Main loop
+      \else
+        \pgfmathsetmacro{\numParticles}{150 - \i}
+        \particles{\rx + 0.15}{\ry + 0.15}{\spread}{\numParticles} % Particles converge to robot
+      \fi
+
+      % Another possible position 1
+      \pgfmathsetmacro{\onex}{(4 - 0.5) * sin(3.1415 * \i / 4) + 0.5}  % Arc motion on x-axis
+      \pgfmathsetmacro{\oney}{(4 - 0.5) * (1 - cos(3.1415 * \i / 4)) + 2.5}  % Arc motion on y-axis
+
+      % Another possible position 2
+      \pgfmathsetmacro{\twox}{(4 - 0.5) * sin(3.1415 * \i / 4) + 4.5}  % Arc motion on x-axis
+      \pgfmathsetmacro{\twoy}{(4 - 0.5) * (1 - cos(3.1415 * \i / 4)) + 1.5}  % Arc motion on y-axis
+      
+      % Particles for two other possible positions
+      % Start gathering around them after 10
+      \ifnum\i >10
+        % Special intervals for num of particles for cluster 1
+        \ifnum\i<85
+          \ifnum\i>55
+            \pgfmathsetmacro{\numone}{85-\i}
+          \else
+            \pgfmathsetmacro{\numone}{30}
+          \fi
+          \particles{\onex}{\oney}{\spread}{\numone}
+        \fi
+        % Special intervals for num of particles for clyster 2
+        \ifnum\i<65
+          \ifnum\i>45
+            \pgfmathsetmacro{\numtwo}{65-\i}
+          \else
+            \pgfmathsetmacro{\numtwo}{20}
+          \fi
+          \particles{\twox}{\twoy}{\spread}{\numtwo}
+        \fi
+      \fi
+      
+    \end{tikzpicture}
+  }
+\end{animateinline}
